@@ -1,0 +1,93 @@
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+
+
+    .formContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            width: 15em;
+            height: 20em;
+            background-color: #ffffff50;
+            filter: drop-shadow(black 0 0 20px);
+            border-radius: 0.5em;
+            backdrop-filter: blur(25px);
+            font-family: var(--main);
+
+            label,input {
+                width: 80%;
+                color: white;
+            }
+
+            input {
+                height: 40px;
+                border-radius: 0.25em;
+            }
+
+            input[type="submit"] {
+                background-color: var(--charcoal-light);
+                border: 0;
+                margin: 10px 0;
+                transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+                &:hover {
+                    background-color: var(--charcoal);
+                    color: var(--saffron);
+                }
+            }
+
+            h1 {
+                margin: 20px 0;
+                color: white;
+                font-weight: 700;
+            }
+
+            input[required] {
+                border: 0;
+                padding: 0 10px;
+                background-color: #ffffff50;
+
+                &::placeholder {
+                    color: #ffffff50;
+                }
+
+                &:focus {
+                    backdrop-filter: brightness(1.005);
+                }
+            }
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            font-family: var(--main);
+            font-size: 12px;
+            filter: drop-shadow(#ffffff50 0 0 2px);
+            transition: filter 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+            &:hover {
+                filter: drop-shadow(#ffffffff 0 0 4px);
+            }
+        }
+    }
+
+    img {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        z-index: -1;
+        object-fit: cover;
+        filter: brightness(0.7);
+    }
+}
