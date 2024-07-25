@@ -1,6 +1,7 @@
 const apiUrl = 'http://127.0.0.1:8000/api/autocars/';
 const tableBody = document.querySelector('#autocar-table tbody');
 const addButton = document.querySelector('#addBtn');
+const deleteButton = document.querySelector('#delete');
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -12,12 +13,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 data.forEach(autocar => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
+                        <input type="hidden" value="${autocar.id}">
                         <td>${autocar.name}</td>
                         <td>${autocar.license_plate}</td>
                         <td>${autocar.capacity}</td>
                         <td>
                             <button class="edit" title="Edit"><i class="fa fa-pen"></i></button>
-                            <button class="delete" title="Delete"><i class="fa fa-trash"></i></button>
+                            <button class="delete" title="Delete" onclick="deleteAutocars(this);"><i class="fa fa-trash"></i></button>
                         </td>
                     `;
                     tableBody.appendChild(row);
@@ -36,24 +38,48 @@ function addAutocars() {
     const license_plate = document.querySelector('#license_plate').value;
     const capacity = document.querySelector('#capacity').value;
 
+    const addData = {
+        "name": name.toString(),
+        "license_plate": license_plate.toString(),
+        "capacity": capacity
+    };
+
     fetch(apiUrl, {
         method: 'POST',
-        body:JSON.stringify(
-            {
-                "name": name,
-                "license_plate": license_plate,
-                "capacity": capacity
-            }
-        )
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(addData)
     })
         .then(response => response.json())
         .then(data => {
-            boxAlert(data.success,"green");
+            boxAlert("Autocar created successfully !","green");
         })
         .catch(error => console.error('Error fetching autocars:', error));
 }
 
-document.addEventListener("click", () => {
+addButton.addEventListener("click", () => {
     addAutocars();
-    window.location.reload();
 });
+
+function deleteAutocars(element) {
+    const row = element.parentElement.parentElement;
+    const id = row.querySelector('input').value;
+    const deleteApiLink = 'http://127.0.0.1:8000/api/autocars/' + id + "/";
+    console.log(deleteApiLink);
+
+    fetch(deleteApiLink, {
+        method: 'DELETE',
+    })
+        .then(response => {
+            response.json();
+        })
+        .then(data => {
+            boxAlert("Autocar deleted","green");
+            if (row) row.parentNode.removeChild(row);
+        })
+        .catch(error => { 
+            console.error('Error fetching autocars:', error)
+            boxAlert("Internal Error","red");
+        });
+}
