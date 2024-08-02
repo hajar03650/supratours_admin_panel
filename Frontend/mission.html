@@ -34,15 +34,39 @@
     </header>
 
     <section class="container">
-        <table>
+        <table id="autocar-table">
             <thead>
-                <td>
-                    <tr></tr>
-                </td>
+                <tr>
+                    <th>Chauffeur</th>
+                    <th>Autocar</th>
+                    <th>Destination</th>
+                    <th>Date de départ</th>
+                    <th>Date d'arrivé</th>
+                    <th colspan="2">Actions</th>
+                </tr>
             </thead>
-        </table>
+        <tbody>
+            <!-- Filled by request API -->
+        </tbody>
+    </table>
+
+    <div class="addBus">
+        <input type="text" name="driver" id="driverName" placeholder="Chauffeur" required>
+        <select name="autocar" id="autocarSelect">
+            <!-- Filled by request API -->
+        </select>
+        <input type="text" name="Destination" id="destination" placeholder="Destination" required>
+        <input type="date" name="departTime" id="departTime" title="Date de départ">
+        <input type="date" name="arriveTime" id="arriveTime" title="Date d'arrivé'">
+        <select name="cards" id="cardSelect">
+            <!-- Filled by request API -->
+        </select>
+        <button id="addBtn"><i class="fa fa-plus"></i></button>
+    </div>
     </section>
 
+    <script src="js/script.js"></script>
+    <script src="js/mission.js"></script>
 </body>
 
 </html>
