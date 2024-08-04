@@ -1,34 +1,34 @@
-const apiUrl = 'http://127.0.0.1:8000/api/autocars/';
 const tableBody = document.querySelector('#autocar-table tbody');
 const addButton = document.querySelector('#addBtn');
 const deleteButton = document.querySelector('#delete');
 const rowHTML = ``;
 
-function fetchAutocars() {
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            tableBody.innerHTML = ''; // Clear the table before adding new rows
+async function fetchAutocars() {
+    try {
+        const data = await getAutocars();
+        tableBody.innerHTML = ''; // Clear the table before adding new rows
             data.forEach(autocar => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <input type="hidden" value="${autocar.id}">
-                    <td>${autocar.name}</td>
-                    <td>${autocar.license_plate}</td>
-                    <td>${autocar.capacity}</td>
-                    <td>
-                        <button class="edit" title="Edit"><i class="fa fa-pen"></i></button>
-                        <button class="delete" title="Delete" onclick="deleteAutocars(this);"><i class="fa fa-trash"></i></button>
-                    </td>
-                `;
-                tableBody.appendChild(row);
-            });
-        })
-        .catch(error => console.error('Error fetching autocars:', error));
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <input type="hidden" value="${autocar.id}">
+                <td>${autocar.immatriculation}</td>
+                <td>${autocar.marque}</td>
+                <td>${autocar.modele}</td>
+                <td>${autocar.capacite}</td>
+                <td>
+                    <button class="edit" title="Edit"><i class="fa fa-pen"></i></button>
+                    <button class="delete" title="Delete" onclick="deleteAutocars(this);"><i class="fa fa-trash"></i></button>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error("Error : " + error.message);
+    }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    fetchAutocars(); // Fetch data when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    fetchAutocars();
 });
 
 function addAutocars() {
@@ -42,19 +42,7 @@ function addAutocars() {
         "capacity": capacity
     };
 
-    fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(addData)
-    })
-        .then(response => response.json())
-        .then(data => {
-            boxAlert("Autocar created successfully !","green");
-            fetchAutocars();
-        })
-        .catch(error => console.error('Error fetching autocars:', error));
+    createAutocar(addData);
 }
 
 addButton.addEventListener("click", () => {

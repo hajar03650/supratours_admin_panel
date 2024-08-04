@@ -1,284 +1,569 @@
-# API Endpoints
 
-1. **User Registration**
+# Auto Company API Endpoints
 
-   - **URL:** `/api/register/`
-   - **Method:** `POST`
+This guide provides details on the API endpoints for managing chauffeurs, autocars, missions, and cartes in the Auto Company application. The endpoints use Django REST Framework and are secured with JWT authentication.
 
-   **Request JSON:**
+## Authentication
 
-   ```json
-   {
-     "username": "agent_username",
-     "email": "agent@example.com",
-     "password": "password123"
-   }
-   ```
+### Login
 
-   **Response JSON:**
+**URL:** `/api/login/`
+**Method:** `POST`
+**Description:** Authenticates a user and returns a JWT token.
 
-   ```json
-   {
-     "user": {
-       "username": "agent_username",
-       "email": "agent@example.com"
-     }
-   }
-   ```
-2. **User Login**
+**Request Body:**
 
-   - **URL:** `/api/login/`
-   - **Method:** `POST`
+```json
+{
+  "username": "string",
+  "password": "string"
+}
+```
 
-   **Request JSON:**
+**Response:**
 
-   ```json
-   {
-     "username": "agent_username",
-     "password": "password123"
-   }
-   ```
+```json
+{
+  "access": "string",
+  "refresh": "string"
+}
+```
 
-   **Response JSON:**
+## Chauffeur
 
-   ```json
-   {
-     "refresh": "refresh_token",
-     "access": "access_token"
-   }
-   ```
-3. **Token Refresh**
+### List Chauffeurs
 
-   - **URL:** `/api/token/refresh/`
-   - **Method:** `POST`
+**URL:** `/api/chauffeurs/`
+**Method:** `GET`
+**Description:** Retrieves a list of all chauffeurs.
 
-   **Request JSON:**
+**Response:**
 
-   ```json
-   {
-     "refresh": "refresh_token"
-   }
-   ```
+```json
+[
+  {
+    "id": 1,
+    "nom": "string",
+    "prenom": "string",
+    "permis_conduire": "string"
+  },
+  ...
+]
+```
 
-   **Response JSON:**
+### Create Chauffeur
 
-   ```json
-   {
-     "access": "new_access_token"
-   }
-   ```
-4. **Get Profile**
+**URL:** `/api/chauffeurs/`
+**Method:** `POST`
+**Description:** Creates a new chauffeur.
 
-   - **URL:** `/api/profile/`
-   - **Method:** `GET`
-   - **Headers:** `Authorization: Bearer <access_token>`
+**Request Body:**
 
-   **Response JSON:**
+```json
+{
+  "nom": "string",
+  "prenom": "string",
+  "permis_conduire": "string"
+}
+```
 
-   ```json
-   {
-     "user": {
-       "id": 1,
-       "username": "agent_username",
-       "email": "agent@example.com"
-     },
-     "bio": "Agent bio",
-     "location": "Agent location"
-   }
-   ```
-5. **Update Profile**
+**Response:**
 
-   - **URL:** `/api/profile/`
-   - **Method:** `PUT`
-   - **Headers:** `Authorization: Bearer <access_token>`
+```json
+{
+  "id": 1,
+  "nom": "string",
+  "prenom": "string",
+  "permis_conduire": "string"
+}
+```
 
-   **Request JSON:**
+### Retrieve Chauffeur
 
-   ```json
-   {
-     "bio": "Updated bio",
-     "location": "Updated location"
-   }
-   ```
+**URL:** `/api/chauffeurs/{id}/`
+**Method:** `GET`
+**Description:** Retrieves details of a specific chauffeur.
 
-   **Response JSON:**
+**Response:**
 
-   ```json
-   {
-     "user": {
-       "id": 1,
-       "username": "agent_username",
-       "email": "agent@example.com"
-     },
-     "bio": "Updated bio",
-     "location": "Updated location"
-   }
-   ```
-6. **List/Create Autocar**
+```json
+{
+  "id": 1,
+  "nom": "string",
+  "prenom": "string",
+  "permis_conduire": "string"
+}
+```
 
-   - **URL:** `/api/autocars/`
-   - **Method:** `GET` (List) / `POST` (Create)
+### Update Chauffeur
 
-   **Request JSON (POST):**
+**URL:** `/api/chauffeurs/{id}/`
+**Method:** `PUT`
+**Description:** Updates a specific chauffeur.
 
-   ```json
-   {
-     "name": "Bus A",
-     "license_plate": "ABC123",
-     "capacity": 50
-   }
-   ```
+**Request Body:**
 
-   **Response JSON (POST):**
+```json
+{
+  "nom": "string",
+  "prenom": "string",
+  "permis_conduire": "string"
+}
+```
 
-   ```json
-   {
-     "id": 1,
-     "name": "Bus A",
-     "license_plate": "ABC123",
-     "capacity": 50
-   }
-   ```
-7. **Retrieve/Update/Delete Autocar**
+**Response:**
 
-   - **URL:** `/api/autocars/<id>/`
-   - **Method:** `GET` (Retrieve) / `PUT` (Update) / `DELETE` (Delete)
+```json
+{
+  "id": 1,
+  "nom": "string",
+  "prenom": "string",
+  "permis_conduire": "string"
+}
+```
 
-   **Request JSON (PUT):**
+### Delete Chauffeur
 
-   ```json
-   {
-     "name": "Updated Bus A",
-     "license_plate": "XYZ789",
-     "capacity": 55
-   }
-   ```
+**URL:** `/api/chauffeurs/{id}/`
+**Method:** `DELETE`
+**Description:** Deletes a specific chauffeur.
 
-   **Response JSON (PUT):**
+**Response:**
 
-   ```json
-   {
-     "id": 1,
-     "name": "Updated Bus A",
-     "license_plate": "XYZ789",
-     "capacity": 55
-   }
-   ```
-8. **List/Create Carte**
+```json
+{
+  "detail": "Chauffeur deleted."
+}
+```
 
-   - **URL:** `/api/cartes/`
-   - **Method:** `GET` (List) / `POST` (Create)
+## Autocar
 
-   **Request JSON (POST):**
+### List Autocars
 
-   ```json
-   {
-     "name": "Carte A",
-     "card_number": "123456789",
-     "balance": 100.00
-   }
-   ```
+**URL:** `/api/autocars/`
+**Method:** `GET`
+**Description:** Retrieves a list of all autocars.
 
-   **Response JSON (POST):**
+**Response:**
 
-   ```json
-   {
-     "id": 1,
-     "name": "Carte A",
-     "card_number": "123456789",
-     "balance": 100.00
-   }
-   ```
-9. **Retrieve/Update/Delete Carte**
+```json
+[
+  {
+    "id": 1,
+    "immatriculation": "string",
+    "marque": "string",
+    "modele": "string",
+    "capacite": 50
+  },
+  ...
+]
+```
 
-   - **URL:** `/api/cartes/<id>/`
-   - **Method:** `GET` (Retrieve) / `PUT` (Update) / `DELETE` (Delete)
+### Create Autocar
 
-   **Request JSON (PUT):**
+**URL:** `/api/autocars/`
+**Method:** `POST`
+**Description:** Creates a new autocar.
 
-   ```json
-   {
-     "name": "Updated Carte A",
-     "card_number": "987654321",
-     "balance": 150.00
-   }
-   ```
+**Request Body:**
 
-   **Response JSON (PUT):**
+```json
+{
+  "immatriculation": "string",
+  "marque": "string",
+  "modele": "string",
+  "capacite": 50
+}
+```
 
-   ```json
-   {
-     "id": 1,
-     "name": "Updated Carte A",
-     "card_number": "987654321",
-     "balance": 150.00
-   }
-   ```
-10. **List/Create Mission**
+**Response:**
 
-    - **URL:** `/api/missions/`
-    - **Method:** `GET` (List) / `POST` (Create)
+```json
+{
+  "id": 1,
+  "immatriculation": "string",
+  "marque": "string",
+  "modele": "string",
+  "capacite": 50
+}
+```
 
-    **Request JSON (POST):**
+### Retrieve Autocar
 
-    ```json
-    {
-      "driver": "agent_username",
-      "autocar": "Bus A",
-      "destination": "City Center",
-      "departure_time": "2024-07-24T10:00:00Z",
-      "arrival_time": "2024-07-24T12:00:00Z",
-      "card": "Carte A"
-    }
-    ```
+**URL:** `/api/autocars/{id}/`
+**Method:** `GET`
+**Description:** Retrieves details of a specific autocar.
 
-    **Response JSON (POST):**
+**Response:**
 
-    ```json
-    {
-      "id": 1,
-      "driver": "agent_username",
-      "autocar": "Bus A",
-      "destination": "City Center",
-      "departure_time": "2024-07-24T10:00:00Z",
-      "arrival_time": "2024-07-24T12:00:00Z",
-      "card": "Carte A"
-    }
-    ```
-11. **Retrieve/Update/Delete Mission**
+```json
+{
+  "id": 1,
+  "immatriculation": "string",
+  "marque": "string",
+  "modele": "string",
+  "capacite": 50
+}
+```
 
-    - **URL:** `/api/missions/<id>/`
-    - **Method:** `GET` (Retrieve) / `PUT` (Update) / `DELETE` (Delete)
+### Update Autocar
 
-    **Request JSON (PUT):**
+**URL:** `/api/autocars/{id}/`
+**Method:** `PUT`
+**Description:** Updates a specific autocar.
 
-    ```json
-    {
-      "driver": "agent_username",
-      "autocar": "Updated Bus A",
-      "destination": "New Destination",
-      "departure_time": "2024-07-25T10:00:00Z",
-      "arrival_time": "2024-07-25T12:00:00Z",
-      "card": "Updated Carte A"
-    }
-    ```
+**Request Body:**
 
-    **Response JSON (PUT):**
+```json
+{
+  "immatriculation": "string",
+  "marque": "string",
+  "modele": "string",
+  "capacite": 50
+}
+```
 
-    ```json
-    {
-      "id": 1,
-      "driver": "agent_username",
-      "autocar": "Updated Bus A",
-      "destination": "New Destination",
-      "departure_time": "2024-07-25T10:00:00Z",
-      "arrival_time": "2024-07-25T12:00:00Z",
-      "card": "Updated Carte A"
-    }
-    ```
+**Response:**
 
-### Summary
+```json
+{
+  "id": 1,
+  "immatriculation": "string",
+  "marque": "string",
+  "modele": "string",
+  "capacite": 50
+}
+```
 
-This includes the essential API endpoints and JSON payloads for user management, profile handling, and CRUD operations for `Autocar`, `Carte`, and `Mission`. Use these details to integrate your frontend with your Django backend.
+### Delete Autocar
 
-If you have any additional questions or need further adjustments, let me know!
+**URL:** `/api/autocars/{id}/`
+**Method:** `DELETE`
+**Description:** Deletes a specific autocar.
+
+**Response:**
+
+```json
+{
+  "detail": "Autocar deleted."
+}
+```
+
+## Carte
+
+### List Cartes
+
+**URL:** `/api/cartes/`
+**Method:** `GET`
+**Description:** Retrieves a list of all cartes.
+
+**Response:**
+
+```json
+[
+  {
+    "id": 1,
+    "numero": "string",
+    "solde": 100.00
+  },
+  ...
+]
+```
+
+### Create Carte
+
+**URL:** `/api/cartes/`
+**Method:** `POST`
+**Description:** Creates a new carte.
+
+**Request Body:**
+
+```json
+{
+  "numero": "string",
+  "solde": 100.00
+}
+```
+
+**Response:**
+
+```json
+{
+  "id": 1,
+  "numero": "string",
+  "solde": 100.00
+}
+```
+
+### Retrieve Carte
+
+**URL:** `/api/cartes/{id}/`
+**Method:** `GET`
+**Description:** Retrieves details of a specific carte.
+
+**Response:**
+
+```json
+{
+  "id": 1,
+  "numero": "string",
+  "solde": 100.00
+}
+```
+
+### Update Carte
+
+**URL:** `/api/cartes/{id}/`
+**Method:** `PUT`
+**Description:** Updates a specific carte.
+
+**Request Body:**
+
+```json
+{
+  "numero": "string",
+  "solde": 100.00
+}
+```
+
+**Response:**
+
+```json
+{
+  "id": 1,
+  "numero": "string",
+  "solde": 100.00
+}
+```
+
+### Delete Carte
+
+**URL:** `/api/cartes/{id}/`
+**Method:** `DELETE`
+**Description:** Deletes a specific carte.
+
+**Response:**
+
+```json
+{
+  "detail": "Carte deleted."
+}
+```
+
+## Mission
+
+### List Missions
+
+**URL:** `/api/missions/`
+**Method:** `GET`
+**Description:** Retrieves a list of all missions.
+
+**Response:**
+
+```json
+[
+  {
+    "id": 1,
+    "chauffeur": 1,
+    "autocar": 1,
+    "ville_depart": "string",
+    "ville_arrivee": "string",
+    "date_depart": "2023-01-01T00:00:00Z",
+    "date_arrivee": "2023-01-01T00:00:00Z",
+    "carte": 1
+  },
+  ...
+]
+```
+
+### Create Mission
+
+**URL:** `/api/missions/`
+**Method:** `POST`
+**Description:** Creates a new mission.
+
+**Request Body:**
+
+```json
+{
+  "chauffeur": 1,
+  "autocar": 1,
+  "ville_depart": "string",
+  "ville_arrivee": "string",
+  "date_depart": "2023-01-01T00:00:00Z",
+  "date_arrivee": "2023-01-01T00:00:00Z",
+  "carte": 1
+}
+```
+
+**Response:**
+
+```json
+{
+  "id": 1,
+  "chauffeur": 1,
+  "autocar": 1,
+  "ville_depart": "string",
+  "ville_arrivee": "string",
+  "date_depart": "2023-01-01T00:00:00Z",
+  "date_arrivee": "2023-01-01T00:00:00Z",
+  "carte": 1
+}
+```
+
+### Retrieve Mission
+
+**URL:** `/api/missions/{id}/`
+**Method:** `GET`
+**Description:** Retrieves details of a specific mission.
+
+**Response:**
+
+```json
+{
+  "id": 1,
+  "chauffeur": 1,
+  "autocar": 1,
+  "ville_depart": "string",
+  "ville_arrivee": "string",
+  "date_depart": "2023-01-01T00:00:00Z",
+  "date_arrivee": "2023-01-01T00:00:00Z",
+  "carte": 1
+}
+```
+
+### Update Mission
+
+**URL:** `/api/missions/{id}/`
+**Method:** `PUT`
+**Description:** Updates a specific mission.
+
+**Request Body:**
+
+```json
+{
+  "chauffeur": 1,
+  "autocar": 1,
+  "ville_depart": "string",
+  "ville_arrivee":
+
+ "string",
+  "date_depart": "2023-01-01T00:00:00Z",
+  "date_arrivee": "2023-01-01T00:00:00Z",
+  "carte": 1
+}
+```
+
+**Response:**
+
+```json
+{
+  "id": 1,
+  "chauffeur": 1,
+  "autocar": 1,
+  "ville_depart": "string",
+  "ville_arrivee": "string",
+  "date_depart": "2023-01-01T00:00:00Z",
+  "date_arrivee": "2023-01-01T00:00:00Z",
+  "carte": 1
+}
+```
+
+### Delete Mission
+
+**URL:** `/api/missions/{id}/`
+**Method:** `DELETE`
+**Description:** Deletes a specific mission.
+
+**Response:**
+
+```json
+{
+  "detail": "Mission deleted."
+}
+```
+
+## Counter
+
+### Retrieve Counter
+
+**URL:** `/api/counter/`
+**Method:** `GET`
+**Description:** Retrieves the counts of chauffeurs, autocars, cartes, and missions.
+
+**Response:**
+
+```json
+{
+  "chauffeur_count": 10,
+  "autocar_count": 5,
+  "carte_count": 15,
+  "mission_count": 20
+}
+```
+
+---
+
+## Setup CORS
+
+To enable CORS in your Django application, add the following to your `settings.py`:
+
+```python
+INSTALLED_APPS = [
+    # ...
+    'corsheaders',
+    # ...
+]
+
+MIDDLEWARE = [
+    # ...
+    'corsheaders.middleware.CorsMiddleware',
+    # ...
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # Add your frontend URL here
+]
+```
+
+## JWT Authentication
+
+Install the required packages:
+
+```bash
+pip install djangorestframework-simplejwt
+```
+
+Add the following to your `settings.py`:
+
+```python
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': False,
+}
+```
+
+In your `urls.py`:
+
+```python
+from django.urls import path
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+urlpatterns = [
+    path('api/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+]
+```
+
+---

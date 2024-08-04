@@ -18,12 +18,12 @@
     </noscript>
     <section class="container">
         <div class="formContainer">
-            <form action="" method="post">
+            <form action="" method="post" id="loginForm">
                 <h1>Login</h1>
                 <label for="username">Identifiant</label>
-                <input type="text" name="username" placeholder="John Doe" required>
+                <input type="text" name="username" placeholder="John Doe" id="username">
                 <label for="password">Mot de passe</label>
-                <input type="password" name="password" placeholder="******" required>
+                <input type="password" name="password" placeholder="******" id="password" disabled="disabled">
                 <input type="submit" value="Login">
             </form>
             <a href="/"><i class="fa fa-house"></i> Return to homepage</a>
@@ -31,6 +31,8 @@
         <img src="/assets/imgs/background-login.jpg" alt="Traveling bus passing next beach">
     </section>
 
+    <script src="js/login.js"></script>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

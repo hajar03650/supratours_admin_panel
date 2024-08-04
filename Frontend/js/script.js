@@ -1,4 +1,3 @@
-// Import CSS CDN
 const cssLink = document.createElement('link');
 cssLink.rel = 'stylesheet';
 cssLink.href = 'https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css';
@@ -8,21 +7,6 @@ const script = document.createElement('script');
 script.src = 'https://cdn.jsdelivr.net/npm/toastify-js'; // Replace with your CDN URL
 document.body.appendChild(script);
 
-const userToken = localStorage.getItem("token");
-
-function verifyLogin() {
-    if (userToken) {
-        
-    }
-}
-
-function getUserDisconnected() {
-    localStorage.removeItem("token");
-    boxAlert("User disconnected successfully!","green");
-    setTimeout(() => {
-        window.location.href = "/";
-    }, 3000);
-}
 
 function boxAlert(msg,color) {
     Toastify({
@@ -39,6 +23,11 @@ function boxAlert(msg,color) {
       }).showToast();
 }
 
-window.addEventListener("DOMContentLoaded", ()=> {
-    verifyLogin();
-})
+function getUserDisconnected() {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    boxAlert("User disconnected successfully!","green");
+    setTimeout(() => {
+        window.location.href = "/";
+    }, 3000);
+}

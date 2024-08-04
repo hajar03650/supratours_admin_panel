@@ -57,18 +57,19 @@
                 font-weight: 700;
             }
 
-            input[required] {
+            input[type="text"],input[type="password"] {
                 border: 0;
                 padding: 0 10px;
                 background-color: #ffffff50;
+                transition: filter 0.3s ease-in-out;
 
                 &::placeholder {
                     color: #ffffff50;
                 }
+            }
 
-                &:focus {
-                    backdrop-filter: brightness(1.005);
-                }
+            input[disabled="disabled"] {
+                filter: brightness(0);
             }
         }
 

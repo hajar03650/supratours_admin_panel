@@ -7,17 +7,17 @@ from .serializers import ChauffeurSerializer, AutocarSerializer, CarteSerializer
 class ChauffeurViewSet(viewsets.ModelViewSet):
     queryset = Chauffeur.objects.all()
     serializer_class = ChauffeurSerializer
-    permission_classes = [IsAuthenticated, IsAdminOrReadOnly]
+    permission_classes = [IsAuthenticated, IsAdminOrReadOnly, IsAgent]
 
 class AutocarViewSet(viewsets.ModelViewSet):
     queryset = Autocar.objects.all()
     serializer_class = AutocarSerializer
-    permission_classes = [IsAuthenticated, IsAdminOrReadOnly]
+    permission_classes = [IsAuthenticated, IsAdminOrReadOnly, IsAgent]
 
 class CarteViewSet(viewsets.ModelViewSet):
     queryset = Carte.objects.all()
     serializer_class = CarteSerializer
-    permission_classes = [IsAuthenticated, IsAdminOrReadOnly]
+    permission_classes = [IsAuthenticated, IsAdminOrReadOnly, IsAgent]
 
 class MissionViewSet(viewsets.ModelViewSet):
     queryset = Mission.objects.all()
