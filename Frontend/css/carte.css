@@ -1,0 +1,135 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    font-family: var(--main);
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 20px;
+
+    table {
+        display: table;
+        flex-direction: column;
+
+        border-collapse: collapse;
+        border-radius: 10px;
+        overflow: hidden;
+
+        background-color: white;
+
+        width: 80%;
+        filter: drop-shadow(#00000075 0 0 20px);
+
+        thead {
+            background-color: var(--charcoal-light);
+            color: white;
+        }
+
+        tr {
+            display: flex;
+            width: 100%;
+            height: 40px;
+            justify-content: center;
+            align-items: center;
+
+            th,td {
+                flex: 1;
+                text-align: center;
+            }
+
+            button {
+                width: 30px;
+                height: 30px;
+                border: 0;
+                border-radius: 5px;
+                color: #fff;
+                cursor: pointer;
+                i {
+                    filter: drop-shadow(#00000075 0 0 5px);
+                }
+
+                &:hover {
+                    filter: brightness(0.8);
+                }
+
+                &:active {
+                    background-color: var(--charcoal-light);
+                }
+            }
+
+            .edit {
+                background-color: var(--saffron);
+            }
+
+            .delete {
+                background-color: red;
+            }
+        }
+    }
+
+    .addCard, .facture {
+        display: flex;
+        width: 80% !important;
+        height: 60px;
+        background-color: var(--charcoal-light);
+        border-radius: 10px;
+        gap: 5px;
+
+        justify-content: center;
+        align-items: center;
+
+        input,button {
+            height: 40px;
+        }
+
+        input {
+            background-color: #ffffff75;
+            backdrop-filter: blur(25px);
+            border: 0;
+            border-radius: 5px;
+            padding: 0 5px;
+            
+            &::placeholder {
+                color: white;
+                font-size: 1.2em;
+            }
+        }
+
+        button {
+            width: 40px;
+            height: 40px;
+            border: 0;
+            border-radius: 5px;
+            color: #fff;
+            background-color: var(--saffron);
+            cursor: pointer;
+            i {
+                filter: drop-shadow(#00000075 0 0 5px);
+            }
+
+            &:hover {
+                filter: brightness(0.8);
+            }
+
+            &:active {
+                background-color: var(--charcoal-light);
+            }
+        }
+
+        #factureBtn {
+            width: 80px !important;
+        }
+    }
+}
+
+.titleFacture {
+    font-size: 1.5em;
+    text-align: center;
+
+    h1 {
+        margin-bottom: 50px;
+    }
+}

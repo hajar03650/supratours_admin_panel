@@ -139,7 +139,14 @@ const getCartes = async () => {
 };
 
 const createCarte = async (carte) => {
-    return fetchData('/cartes/', 'POST', carte);
+    const response = fetchData('/cartes/', 'POST', carte);
+    if (response) { 
+        boxAlert("Card added successfully","green");
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
+    }
+    else boxAlert("Error adding Card","red");
 };
 
 const getCarte = async (id) => {
@@ -152,7 +159,12 @@ const updateCarte = async (id, carte) => {
 };
 
 const deleteCarte = async (id,row) => {
-    return fetchData(`/cartes/${id}/`, 'DELETE');
+    const response = fetchData(`/cartes/${id}/`, 'DELETE');
+    if (response) { 
+        boxAlert("Chauffeur deleted","green");
+        row.remove();
+    }
+    else boxAlert("Error deleting Chauffeur","red");
 };
 
 // Mission functions

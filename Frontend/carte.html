@@ -6,7 +6,7 @@
     <title>Cartes - Supratours</title>
     <link rel="shortcut icon" href="/assets/favicon/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="/css/mission.css">
+    <link rel="stylesheet" href="/css/carte.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -34,8 +34,40 @@
     </header>
 
     <section class="container">
+        <table id="carte-table">
+            <thead>
+                <tr>
+                    <th>Numero</th>
+                    <th>Solde</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+            </thead>
+        <tbody>
+            <!-- Filled by request API -->
+        </tbody>
+    </table>
+
+    <div class="addCard">
+        <input type="text" name="numero" id="numero" placeholder="Numéro" required>
+        <input type="number" name="solde" id="solde" placeholder="Solde en MAD" required>
+        <button id="addBtn"><i class="fa fa-plus"></i></button>
+    </div>
+
+    <div class="titleFacture">
+        <h1>________________________________________</h1>
+        <h3>Facture :</h3>
+    </div>
+
+    <div class="facture">
+            <input type="text" name="card_num" id="card_num" placeholder="Numéro de carte">
+            <input type="number" name="facture" id="facture" placeholder="Montant de la facture">
+            <button id="factureBtn"><i class="fa fa-check"></i> Confirm</button>
+    </div>
     </section>
 
+    <script src="js/script.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/carte.js"></script>
 </body>
 
 </html>
