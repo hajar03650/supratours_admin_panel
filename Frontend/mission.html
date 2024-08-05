@@ -39,9 +39,11 @@
                 <tr>
                     <th>Chauffeur</th>
                     <th>Autocar</th>
+                    <th>Départure</th>
                     <th>Destination</th>
                     <th>Date de départ</th>
                     <th>Date d'arrivé</th>
+                    <th>Carte</th>
                     <th colspan="2">Actions</th>
                 </tr>
             </thead>
@@ -51,10 +53,13 @@
     </table>
 
     <div class="addBus">
-        <input type="text" name="driver" id="driverName" placeholder="Chauffeur" required>
+        <select name="chauffeur" id="chauffeurSelect">
+            <!-- Filled by request API -->
+        </select>
         <select name="autocar" id="autocarSelect">
             <!-- Filled by request API -->
         </select>
+        <input type="text" name="Start" id="start" placeholder="Starting From" required>
         <input type="text" name="Destination" id="destination" placeholder="Destination" required>
         <input type="date" name="departTime" id="departTime" title="Date de départ">
         <input type="date" name="arriveTime" id="arriveTime" title="Date d'arrivé'">

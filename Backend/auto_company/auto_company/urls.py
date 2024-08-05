@@ -9,6 +9,7 @@ router.register(r'chauffeurs', views.ChauffeurViewSet)
 router.register(r'autocars', views.AutocarViewSet)
 router.register(r'cartes', views.CarteViewSet)
 router.register(r'missions', views.MissionViewSet)
+router.register(r'counter', views.CounterViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

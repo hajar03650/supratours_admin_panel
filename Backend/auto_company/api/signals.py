@@ -5,12 +5,11 @@ from django.dispatch import receiver
 from .models import Chauffeur, Autocar, Carte, Mission, Counter
 
 def update_counter():
-    counter, created = Counter.objects.get_or_create(pk=1)
+    counter = Counter.objects
     counter.chauffeur_count = Chauffeur.objects.count()
     counter.autocar_count = Autocar.objects.count()
     counter.carte_count = Carte.objects.count()
     counter.mission_count = Mission.objects.count()
-    counter.save()
 
 @receiver(post_save, sender=Chauffeur)
 @receiver(post_delete, sender=Chauffeur)

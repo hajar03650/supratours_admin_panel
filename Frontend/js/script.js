@@ -26,6 +26,7 @@ function boxAlert(msg,color) {
 function getUserDisconnected() {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
+    localStorage.removeItem("username");
     boxAlert("User disconnected successfully!","green");
     setTimeout(() => {
         window.location.href = "/";

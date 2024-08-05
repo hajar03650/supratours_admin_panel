@@ -21,8 +21,8 @@ class Mission(models.Model):
     autocar = models.ForeignKey(Autocar, on_delete=models.CASCADE)
     ville_depart = models.CharField(max_length=100)
     ville_arrivee = models.CharField(max_length=100)
-    date_depart = models.DateTimeField()
-    date_arrivee = models.DateTimeField()
+    date_depart = models.CharField(max_length=10)
+    date_arrivee = models.CharField(max_length=10)
     carte = models.ForeignKey(Carte, on_delete=models.CASCADE)
 
 class Counter(models.Model):

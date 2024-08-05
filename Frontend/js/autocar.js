@@ -16,7 +16,6 @@ async function fetchAutocars() {
                 <td>${autocar.modele}</td>
                 <td>${autocar.capacite}</td>
                 <td>
-                    <button class="edit" title="Edit"><i class="fa fa-pen"></i></button>
                     <button class="delete" title="Delete" onclick="deleteAutocars(this);"><i class="fa fa-trash"></i></button>
                 </td>
             `;
@@ -31,18 +30,20 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchAutocars();
 });
 
-function addAutocars() {
-    const name = document.querySelector('#name').value;
-    const license_plate = document.querySelector('#license_plate').value;
+async function addAutocars() {
+    const immatriculation = document.querySelector('#immatriculation').value;
+    const marque = document.querySelector('#marque').value;
+    const modele = document.querySelector('#modele').value;
     const capacity = document.querySelector('#capacity').value;
 
     const addData = {
-        "name": name.toString(),
-        "license_plate": license_plate.toString(),
-        "capacity": capacity
+        "immatriculation": immatriculation.toString(),
+        "marque": marque.toString(),
+        "modele": modele.toString(),
+        "capacite": capacity
     };
 
-    createAutocar(addData);
+    const response = await createAutocar(addData);
 }
 
 addButton.addEventListener("click", () => {
@@ -52,21 +53,5 @@ addButton.addEventListener("click", () => {
 function deleteAutocars(element) {
     const row = element.parentElement.parentElement;
     const id = row.querySelector('input').value;
-    const deleteApiLink = 'http://127.0.0.1:8000/api/autocars/' + id + "/";
-    console.log(deleteApiLink);
-
-    fetch(deleteApiLink, {
-        method: 'DELETE',
-    })
-        .then(response => {
-            response.json();
-        })
-        .then(data => {
-            boxAlert("Autocar deleted","green");
-            if (row) row.parentNode.removeChild(row);
-        })
-        .catch(error => { 
-            console.error('Error fetching autocars:', error)
-            boxAlert("Internal Error","red");
-        });
+    deleteAutocar(id,row);
 }

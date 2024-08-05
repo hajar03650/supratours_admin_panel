@@ -59,8 +59,9 @@ const fetchData = async (url, method = 'GET', body = null, headers = {}) => {
         body: body ? JSON.stringify(body) : null
     };
     const response = await fetch(`${API_BASE_URL}${url}`, options);
-    if (!response.ok) {
+    if (!response) {
         const error = await response.json();
+        boxAlert("Error: ", error.message);
         throw new Error(error.detail || 'Something went wrong');
     }
     return response.json();
@@ -72,7 +73,14 @@ const getChauffeurs = async () => {
 };
 
 const createChauffeur = async (chauffeur) => {
-    return fetchData('/chauffeurs/', 'POST', chauffeur);
+    const response = fetchData('/chauffeurs/', 'POST', chauffeur);
+    if (response) { 
+        boxAlert("Chauffeur added successfully","green");
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
+    }
+    else boxAlert("Error adding Chauffeur","red");
 };
 
 const getChauffeur = async (id) => {
@@ -83,8 +91,13 @@ const updateChauffeur = async (id, chauffeur) => {
     return fetchData(`/chauffeurs/${id}/`, 'PUT', chauffeur);
 };
 
-const deleteChauffeur = async (id) => {
-    return fetchData(`/chauffeurs/${id}/`, 'DELETE');
+const deleteChauffeur = async (id,row) => {
+    const response = fetchData(`/chauffeurs/${id}/`, 'DELETE');
+    if (response) { 
+        boxAlert("Chauffeur deleted","green");
+        row.remove();
+    }
+    else boxAlert("Error deleting Chauffeur","red");
 };
 
 // Autocar functions
@@ -93,7 +106,14 @@ const getAutocars = async () => {
 };
 
 const createAutocar = async (autocar) => {
-    return fetchData('/autocars/', 'POST', autocar);
+    const response = fetchData('/autocars/', 'POST', autocar);
+    if (response) {
+        boxAlert("Autocar added successfully","green");
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
+    }
+    else boxAlert("Error adding Autocar","red");
 };
 
 const getAutocar = async (id) => {
@@ -104,8 +124,13 @@ const updateAutocar = async (id, autocar) => {
     return fetchData(`/autocars/${id}/`, 'PUT', autocar);
 };
 
-const deleteAutocar = async (id) => {
-    return fetchData(`/autocars/${id}/`, 'DELETE');
+const deleteAutocar = async (id,row) => {
+    const response = fetchData(`/autocars/${id}/`, 'DELETE');
+    if (response) { 
+        boxAlert("Autocar deleted","green");
+        row.remove();
+    }
+    else boxAlert("Error deleting Autocar","red");
 };
 
 // Carte functions
@@ -136,7 +161,12 @@ const getMissions = async () => {
 };
 
 const createMission = async (mission) => {
-    return fetchData('/missions/', 'POST', mission);
+    const response = fetchData(`/missions/`, 'POST', mission);
+    if (response) {
+        boxAlert("Mission added","green");
+        window.location.reload();
+    }
+    else boxAlert("Error addming mission")
 };
 
 const getMission = async (id) => {
@@ -148,7 +178,12 @@ const updateMission = async (id, mission) => {
 };
 
 const deleteMission = async (id,row) => {
-    return fetchData(`/missions/${id}/`, 'DELETE');
+    const response = fetchData(`/missions/${id}/`, 'DELETE');
+    if (response) { 
+        boxAlert("Mission deleted","green");
+        row.remove();
+    }
+    else boxAlert("Error deleting Mission","red");
 };
 
 // Counter function
