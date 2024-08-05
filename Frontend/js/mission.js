@@ -90,4 +90,6 @@ async function deleteAutocars(element) {
     const row = element.parentElement.parentElement;
     const id = row.querySelector('input').value;
     const response = await deleteAutocar(id);
+    if (response) boxAlert("Autocar deleted");
+    else boxAlert("Action Error");
 }

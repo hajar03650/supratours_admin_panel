@@ -30,12 +30,21 @@ if (!token || isTokenExpired(token)) {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     boxAlert("Token invalid or expired! please login.","red");
-    const blocking = document.createElement("div")
+    const blocking = document.createElement("div");
+    const ul = document.querySelector('nav ul');
+    ul.firstChild.parentElement.style.display = "none";
     blocking.className = "blocking";
     document.body.insertBefore(blocking,document.body.firstChild);
     setTimeout(() => {
         window.location.href = "/login";
     }, 3000);
+}
+
+else {
+    const disconnectBtn = document.querySelector('nav ul').lastElementChild;
+    disconnectBtn.addEventListener("click", () => {
+        getUserDisconnected();
+    })
 }
 
 // Helper function to make fetch requests
@@ -57,7 +66,7 @@ const fetchData = async (url, method = 'GET', body = null, headers = {}) => {
     return response.json();
 };
 
-// Chauffeur functions
+// Chauffeur functions ...
 const getChauffeurs = async () => {
     return fetchData('/chauffeurs/');
 };

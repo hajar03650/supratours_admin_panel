@@ -108,3 +108,7 @@ nav {
     z-index: 99 !important;
     cursor: not-allowed !important;
 }
+
+.disconnect {
+    background-color: red !important;
+}
